@@ -23,14 +23,16 @@ namespace billige_madopskrifter.Service
     {
         private readonly DBContext _context;
         private readonly AppSettings _appSettings;
+        private readonly IPasswordHelper _passwordHelper;
 
-        public UserService(IOptions<AppSettings> appSettings, DBContext context)
+        public UserService(IOptions<AppSettings> appSettings, DBContext context, IPasswordHelper passwordHelper)
         {
             _context = context;
             _appSettings = appSettings.Value;
+            _passwordHelper = passwordHelper;
         }
 
-        //AUTHENTICATE
+        //Authenticate
         public async Task<AuthenticateResponseDto> Authenticate(AuthenticateRequestDto dto)
         {
 
@@ -39,7 +41,12 @@ namespace billige_madopskrifter.Service
             // return null if user not found
             if (user == null) return new AuthenticateResponseDto { StatusText = "UserNotFound" };
 
-            if(user.Password != dto.Password) return new AuthenticateResponseDto { StatusText = "Incorrect password" };
+            //if(user.Password != dto.Password) return new AuthenticateResponseDto { StatusText = "Incorrect password" };
+
+            if (!_passwordHelper.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return new AuthenticateResponseDto { StatusText = "IncorrectPassword" };
+            }
 
             // authentication successful so generate jwt token
             var token = generateJwtToken(user);
@@ -54,7 +61,7 @@ namespace billige_madopskrifter.Service
         }
 
 
-        // GENERATES TOKEN FOR AUTH
+        // Token generation for auth
         private string generateJwtToken(User user)
         {
             // generate token that is valid for 7 days
@@ -87,7 +94,7 @@ namespace billige_madopskrifter.Service
             };
         }
 
-        // GET BY ID
+        // Get by id
         public async Task<GetUserByIdResponseDto> GetById(int id)
         {
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
@@ -103,7 +110,7 @@ namespace billige_madopskrifter.Service
         }
 
 
-        // CREATE
+        // Create new user
         public async Task<CreateUserResponseDto> Create(CreateUserRequestDto dto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(d => d.Email == dto.Email);
@@ -112,16 +119,19 @@ namespace billige_madopskrifter.Service
             {
                 return new CreateUserResponseDto
                 {
-                    StatusText = "EmailAlreadyInUse",
+                    StatusText = "Email already in use",
                     FullName = ""
                 };
             }
+
+            var (passwordHash, passwordSalt) = _passwordHelper.CreateHash(dto.Password);
 
             var entity = _context.Users.Add(new User
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
-                Password = dto.Password,           
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
             });
 
             await _context.SaveChangesAsync();

@@ -24,7 +24,7 @@ builder.Services.AddDbContext<DBContext>(options => options.UseMySql(cs, sv));
 
 //INJECT SERVICE KLASSER
 builder.Services.AddTransient<IUserService, UserService>();
-
+builder.Services.AddTransient<IPasswordHelper, PasswordHash>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
