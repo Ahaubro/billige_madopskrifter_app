@@ -11,14 +11,14 @@
         public int UserId { get; set; }
     }
 
-    //Get all response
+    //Get all response dto
     public class GetAllRecipesResponseDTO
     { 
         public IEnumerable<RecipeDTO> Recipes { get; set; }
     }
 
 
-    //Get recipe by Id response
+    //Get recipe by Id response dto
     public class GetRecipeByIdResponseDTO
     {
         public int Id { get; set; }
@@ -31,21 +31,21 @@
     }
 
 
-    //Get recipes by UserId
+    //Get recipes by UserId dto
     public class GetRecipesByUserIdResponseDTO
     {
         public IEnumerable<RecipeDTO> Recipes { get; set; }
     }
 
 
-    //Delete recipe response
+    //Delete recipe response dto
     public class DeleteRecipeReponseDTO
     { 
         public string StatusText { get; set; }
     }
 
 
-    // Create request
+    // Create request dto
     public class CreateRecipeRequestDTO
     {
         public string Name { get; set; }
@@ -56,7 +56,7 @@
     }
 
 
-    //Create response
+    //Create response dto
     public class CreateRecipeResponseDTO
     {
         public string Name { get; set; }
@@ -65,7 +65,7 @@
     }
 
 
-    //Update recipe request 
+    //Update recipe request dto
     public class UpdateRecipeRequestDTO
     {
         public string Name { get; set; }
@@ -76,7 +76,7 @@
     }
 
 
-    //Update recipe response
+    //Update recipe response dto
     public class UpdateRecipeResponseDTO
     { 
         public string Name { get; set; }

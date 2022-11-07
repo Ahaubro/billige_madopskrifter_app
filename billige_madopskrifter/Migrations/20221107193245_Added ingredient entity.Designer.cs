@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using billige_madopskrifter.Data;
 
@@ -10,9 +11,10 @@ using billige_madopskrifter.Data;
 namespace billige_madopskrifter.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20221107193245_Added ingredient entity")]
+    partial class Addedingrediententity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,7 @@ namespace billige_madopskrifter.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Alergene")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<double>("Amount")

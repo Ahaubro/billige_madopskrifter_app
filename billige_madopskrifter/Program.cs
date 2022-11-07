@@ -23,6 +23,7 @@ builder.Services.AddDbContext<DBContext>(options => options.UseMySql(cs, sv));
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IPasswordHelper, PasswordHash>();
 builder.Services.AddTransient<IRecipeService, RecipeService>();
+builder.Services.AddTransient<IIngredientService, IngredientService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -40,7 +40,6 @@ namespace billige_madopskrifter.Controllers
             return await _recipeService.GetById(id);
         }
 
-
         //Get by userId
         [Produces("application/json")]
         [HttpGet("byUserid/{userId:int}")]
@@ -49,7 +48,6 @@ namespace billige_madopskrifter.Controllers
             return await _recipeService.GetByUserId(userid);
         }
 
-
         //Update recipe
         [Produces("application/json")]
         [HttpPatch("{id:int}")]
@@ -57,7 +55,6 @@ namespace billige_madopskrifter.Controllers
         { 
             return await _recipeService.Update(dto, id);
         }
-
 
         //Delete recipe
         [Produces("application/json")]

@@ -1,14 +1,11 @@
 ﻿using billige_madopskrifter.Data;
-using billige_madopskrifter.Migrations;
 using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System.Xml.Linq;
+
 
 namespace billige_madopskrifter.Service
 {
-
     public interface IRecipeService
     {
         Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto);
@@ -22,13 +19,14 @@ namespace billige_madopskrifter.Service
     {
 
         private readonly DBContext _dbContext;
+        private readonly IIngredientService _ingredientService;
 
         //Constructor
-        public RecipeService(DBContext dbContext)
+        public RecipeService(DBContext dbContext, IIngredientService ingredientService)
         {
             _dbContext = dbContext;
+            _ingredientService = ingredientService;
         }
-
 
         //Create new recipe
         public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)
@@ -127,6 +125,7 @@ namespace billige_madopskrifter.Service
 
             if (recipe != null)
             {
+                await _ingredientService.DeleteByRecipeId(id);
                 _dbContext.Remove(recipe);
                 await _dbContext.SaveChangesAsync();
                 return new DeleteRecipeReponseDTO
@@ -156,9 +155,7 @@ namespace billige_madopskrifter.Service
                     NumberOfPersons = r.NumberOfPersons,
                     UserId = r.UserId,
                 })
-            };
-            
+            };            
         }
-
     }
 }
