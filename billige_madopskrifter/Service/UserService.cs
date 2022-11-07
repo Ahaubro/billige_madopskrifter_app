@@ -39,13 +39,13 @@ namespace billige_madopskrifter.Service
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(dto.Email));
 
             // return null if user not found
-            if (user == null) return new AuthenticateResponseDto { StatusText = "UserNotFound" };
+            if (user == null) return new AuthenticateResponseDto { StatusText = "User not found" };
 
             //if(user.Password != dto.Password) return new AuthenticateResponseDto { StatusText = "Incorrect password" };
 
             if (!_passwordHelper.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return new AuthenticateResponseDto { StatusText = "IncorrectPassword" };
+                return new AuthenticateResponseDto { StatusText = "Incorrect password" };
             }
 
             // authentication successful so generate jwt token

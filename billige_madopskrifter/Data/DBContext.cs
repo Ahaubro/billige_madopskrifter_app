@@ -9,5 +9,7 @@ namespace billige_madopskrifter.Data
         public DBContext(DbContextOptions<DBContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Recipe> Recipes { get; set; }
+
     }
 }

@@ -10,10 +10,7 @@ using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,6 +22,8 @@ builder.Services.AddDbContext<DBContext>(options => options.UseMySql(cs, sv));
 //INJECT SERVICE KLASSER
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IPasswordHelper, PasswordHash>();
+builder.Services.AddTransient<IRecipeService, RecipeService>();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
