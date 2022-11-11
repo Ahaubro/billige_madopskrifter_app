@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 //using MySql.Data.MySqlClient;
 using Pomelo.EntityFrameworkCore.MySql;
+using static billige_madopskrifter.Helpers.JWTMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddSwaggerGen();
 
 var sv = new MySqlServerVersion(new Version(8, 0, 29));
 var cs = "server=localhost;user=root;password=0000;database=billigmad";
+
+
 builder.Services.AddDbContext<DBContext>(options => options.UseMySql(cs, sv));
 
 
@@ -24,6 +27,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IPasswordHelper, PasswordHash>();
 builder.Services.AddTransient<IRecipeService, RecipeService>();
 builder.Services.AddTransient<IIngredientService, IngredientService>();
+builder.Services.AddTransient<DBContext>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,6 +42,8 @@ var app = builder.Build();
 
 app.UseCors(configuration =>
                 configuration.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 

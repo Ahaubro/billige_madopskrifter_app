@@ -7,6 +7,7 @@
         public string Type { get; set; }
         public int PrepTime { get; set; }
         public int NumberOfPersons { get; set; }
+        public double EstimatedPrice { get; set; }
         public int UserId { get; set; }
 
     }

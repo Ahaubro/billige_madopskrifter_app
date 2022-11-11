@@ -1,6 +1,7 @@
 ﻿using billige_madopskrifter.Data;
 using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -37,6 +38,7 @@ namespace billige_madopskrifter.Service
                 Type = dto.Type,
                 PrepTime = dto.PrepTime,
                 NumberOfPersons = dto.NumberOfPersons,
+                EstimatedPrice = dto.EstimatedPrice,
                 UserId = dto.UserId,
             });
 
@@ -63,6 +65,7 @@ namespace billige_madopskrifter.Service
                     Type = r.Type,
                     PrepTime = r.PrepTime,
                     NumberOfPersons= r.NumberOfPersons,
+                    EstimatedPrice = r.EstimatedPrice,
                     UserId=r.UserId,
                 })
             };
@@ -82,6 +85,7 @@ namespace billige_madopskrifter.Service
                     Type = recipe.Type,
                     PrepTime = recipe.PrepTime,
                     NumberOfPersons = recipe.NumberOfPersons,
+                    EstimatedPrice = recipe.EstimatedPrice,
                     UserId = recipe.UserId,
                     StatusText = "Succes recipe found"
                 };
@@ -100,6 +104,7 @@ namespace billige_madopskrifter.Service
                 recipe.Type = dto.Type;
                 recipe.PrepTime = dto.PrepTime;
                 recipe.NumberOfPersons = dto.NumberOfPersons;
+                recipe.EstimatedPrice = dto.EstimatedPrice;
                 recipe.UserId = dto.UserId;
 
                 var entity = _dbContext.Update(recipe);
@@ -143,19 +148,28 @@ namespace billige_madopskrifter.Service
         //Get recipes by UserId
         public async Task<GetRecipesByUserIdResponseDTO> GetByUserId(int userId)
         {
+
             var recipes = _dbContext.Recipes.AsNoTracking().Where(r => r.UserId == userId);
-            
-            return new GetRecipesByUserIdResponseDTO
+
+            if (recipes != null)
             {
-                Recipes = recipes.Select(r => new RecipeDTO{
-                    Id = r.Id,
-                    Name = r.Name,
-                    Type = r.Type,
-                    PrepTime = r.PrepTime,
-                    NumberOfPersons = r.NumberOfPersons,
-                    UserId = r.UserId,
-                })
-            };            
+                return new GetRecipesByUserIdResponseDTO
+                {
+                    Recipes = recipes.Select(r => new RecipeDTO
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        Type = r.Type,
+                        PrepTime = r.PrepTime,
+                        NumberOfPersons = r.NumberOfPersons,
+                        EstimatedPrice = r.EstimatedPrice,
+                        UserId = r.UserId,
+                    })
+                };
+            }
+
+            return null;
         }
+
     }
 }
