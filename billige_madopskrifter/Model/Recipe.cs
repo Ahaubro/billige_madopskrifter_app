@@ -1,4 +1,6 @@
-﻿namespace billige_madopskrifter.Model
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace billige_madopskrifter.Model
 {
     public class Recipe
     {
@@ -8,7 +10,10 @@
         public int PrepTime { get; set; }
         public int NumberOfPersons { get; set; }
         public double EstimatedPrice { get; set; }
+        public IList<Ingredient>? Ingredients { get; set; }
+        public string? Description { get; set; }
         public int UserId { get; set; }
 
     }
+
 }

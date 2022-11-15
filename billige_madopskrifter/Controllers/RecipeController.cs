@@ -40,6 +40,14 @@ namespace billige_madopskrifter.Controllers
             return await _recipeService.GetById(id);
         }
 
+        //Get recipe by UserId & name
+        [Produces("application/json")]
+        [HttpGet("getByNameAndUserId/{userId:int}/{name}")]
+        public async Task<GetByNameAndUserIdResponseDTO> GetByNameAndUserId(int userId, string name)
+        {
+            return await _recipeService.GetByNameAndUserId(userId, name);
+        }
+
         //Get by userId
         [Produces("application/json")]
         [HttpGet("byUserid/{userId:int}")]

@@ -1,5 +1,6 @@
 using billige_madopskrifter.Data;
 using billige_madopskrifter.Helpers;
+using billige_madopskrifter.Model;
 using billige_madopskrifter.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,6 +29,7 @@ builder.Services.AddTransient<IPasswordHelper, PasswordHash>();
 builder.Services.AddTransient<IRecipeService, RecipeService>();
 builder.Services.AddTransient<IIngredientService, IngredientService>();
 builder.Services.AddTransient<DBContext>();
+
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

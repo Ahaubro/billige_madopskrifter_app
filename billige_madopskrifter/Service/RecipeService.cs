@@ -13,6 +13,7 @@ namespace billige_madopskrifter.Service
         Task<GetAllRecipesResponseDTO> GetAll();
         Task<GetRecipeByIdResponseDTO> GetById(int id);
         Task<GetRecipesByUserIdResponseDTO> GetByUserId(int userId);
+        Task<GetByNameAndUserIdResponseDTO> GetByNameAndUserId(int userId, string name);
         Task<UpdateRecipeResponseDTO> Update(UpdateRecipeRequestDTO dto, int id);
         Task<DeleteRecipeReponseDTO> Delete(int id);
     }
@@ -29,6 +30,46 @@ namespace billige_madopskrifter.Service
             _ingredientService = ingredientService;
         }
 
+        //Create new recipe med ingredienser
+        //public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)
+        //{
+        //    var entity = _dbContext.Recipes.Add(new Recipe
+        //    {
+        //        Name = dto.Name,
+        //        Type = dto.Type,
+        //        PrepTime = dto.PrepTime,
+        //        NumberOfPersons = dto.NumberOfPersons,
+        //        EstimatedPrice = dto.EstimatedPrice,
+        //        UserId = dto.UserId,
+        //    });
+
+        //    System.Diagnostics.Debug.WriteLine("her", dto.Ingredients.ToString());
+
+        //    //Iterere gennem listen af ingredienser der oprettes med opskriften og tilføjer dem i db
+        //    foreach (Ingredient ingredient in dto.Ingredients)
+        //    {
+        //        var en = _dbContext.Ingredients.Add(new Ingredient
+        //        {
+        //            RecipeId = entity.Entity.Id,
+        //            Name = ingredient.Name,
+        //            Type = ingredient.Type,
+        //            MeasurementUnit = ingredient.MeasurementUnit,
+        //            Amount = ingredient.Amount,
+        //            Alergene = ingredient.Alergene,
+
+        //        });
+        //    }
+
+        //    await _dbContext.SaveChangesAsync();
+
+        //    return new CreateRecipeResponseDTO
+        //    {
+        //        StatusText = "New recipe created",
+        //        Name = entity.Entity.Name,
+        //        Id = entity.Entity.Id,
+        //    };
+        //}
+
         //Create new recipe
         public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)
         {
@@ -41,6 +82,7 @@ namespace billige_madopskrifter.Service
                 EstimatedPrice = dto.EstimatedPrice,
                 UserId = dto.UserId,
             });
+
 
             await _dbContext.SaveChangesAsync();
 
@@ -69,6 +111,28 @@ namespace billige_madopskrifter.Service
                     UserId=r.UserId,
                 })
             };
+        }
+
+        //GetByNameAndUserId
+        public async Task<GetByNameAndUserIdResponseDTO> GetByNameAndUserId(int userId, string name)
+        {
+            var recipe = _dbContext.Recipes.AsNoTracking().FirstOrDefault(r => r.UserId == userId && r.Name == name);
+
+            if (recipe != null)
+            {
+                return new GetByNameAndUserIdResponseDTO
+                {
+                    Id = recipe.Id,
+                    Name = recipe.Name,
+                    Type = recipe.Type,
+                    PrepTime = recipe.PrepTime,
+                    NumberOfPersons = recipe.NumberOfPersons,
+                    EstimatedPrice = recipe.EstimatedPrice,
+                    UserId = recipe.UserId,
+                    StatusText = "Succes recipe found"
+                };
+            }
+            return new GetByNameAndUserIdResponseDTO { StatusText = "Error no recipe found" };
         }
 
         //Get Recipe by Id
@@ -100,19 +164,13 @@ namespace billige_madopskrifter.Service
             
             if (recipe != null)
             {
-                recipe.Name = dto.Name;
-                recipe.Type = dto.Type;
-                recipe.PrepTime = dto.PrepTime;
-                recipe.NumberOfPersons = dto.NumberOfPersons;
-                recipe.EstimatedPrice = dto.EstimatedPrice;
-                recipe.UserId = dto.UserId;
+                recipe.Description = dto.Description;
 
                 var entity = _dbContext.Update(recipe);
                 await _dbContext.SaveChangesAsync();
 
                 return new UpdateRecipeResponseDTO
                 {
-                    Name = dto.Name,
                     StatusText = "Succesfulle updatet recipe"
                 };
             }
