@@ -108,6 +108,7 @@ namespace billige_madopskrifter.Service
                     PrepTime = r.PrepTime,
                     NumberOfPersons= r.NumberOfPersons,
                     EstimatedPrice = r.EstimatedPrice,
+                    Description = r.Description,
                     UserId=r.UserId,
                 })
             };
@@ -150,6 +151,7 @@ namespace billige_madopskrifter.Service
                     PrepTime = recipe.PrepTime,
                     NumberOfPersons = recipe.NumberOfPersons,
                     EstimatedPrice = recipe.EstimatedPrice,
+                    Description = recipe.Description,
                     UserId = recipe.UserId,
                     StatusText = "Succes recipe found"
                 };
@@ -221,6 +223,7 @@ namespace billige_madopskrifter.Service
                         PrepTime = r.PrepTime,
                         NumberOfPersons = r.NumberOfPersons,
                         EstimatedPrice = r.EstimatedPrice,
+                        Description = r.Description,
                         UserId = r.UserId,
                     })
                 };

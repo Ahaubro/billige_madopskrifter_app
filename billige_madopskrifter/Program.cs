@@ -28,6 +28,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IPasswordHelper, PasswordHash>();
 builder.Services.AddTransient<IRecipeService, RecipeService>();
 builder.Services.AddTransient<IIngredientService, IngredientService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<DBContext>();
 
 
