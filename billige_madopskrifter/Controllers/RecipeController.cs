@@ -42,7 +42,7 @@ namespace billige_madopskrifter.Controllers
 
         //Get recipe by UserId & name
         [Produces("application/json")]
-        [HttpGet("getByNameAndUserId/{userId:int}/{name}")]
+        [HttpGet("getbynameanduserid/{userId:int}/{name}")]
         public async Task<GetByNameAndUserIdResponseDTO> GetByNameAndUserId(int userId, string name)
         {
             return await _recipeService.GetByNameAndUserId(userId, name);
@@ -50,10 +50,18 @@ namespace billige_madopskrifter.Controllers
 
         //Get by userId
         [Produces("application/json")]
-        [HttpGet("byUserid/{userId:int}")]
+        [HttpGet("byuserid/{userId:int}")]
         public async Task<GetRecipesByUserIdResponseDTO> GetByUserId(int userid)
         {
             return await _recipeService.GetByUserId(userid);
+        }
+
+        //Get recipe by type
+        [Produces("application/json")]
+        [HttpGet("getbytype/{type}")]
+        public async Task<GetRecipesByTypeResponseDTO> GetByType(string type)
+        { 
+            return await _recipeService.GetByType(type);
         }
 
         //Update recipe

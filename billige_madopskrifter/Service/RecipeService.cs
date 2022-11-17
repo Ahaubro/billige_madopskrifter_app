@@ -16,6 +16,7 @@ namespace billige_madopskrifter.Service
         Task<GetByNameAndUserIdResponseDTO> GetByNameAndUserId(int userId, string name);
         Task<UpdateRecipeResponseDTO> Update(UpdateRecipeRequestDTO dto, int id);
         Task<DeleteRecipeReponseDTO> Delete(int id);
+        Task<GetRecipesByTypeResponseDTO> GetByType(string type);
     }
     public class RecipeService : IRecipeService
     {
@@ -29,46 +30,6 @@ namespace billige_madopskrifter.Service
             _dbContext = dbContext;
             _ingredientService = ingredientService;
         }
-
-        //Create new recipe med ingredienser
-        //public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)
-        //{
-        //    var entity = _dbContext.Recipes.Add(new Recipe
-        //    {
-        //        Name = dto.Name,
-        //        Type = dto.Type,
-        //        PrepTime = dto.PrepTime,
-        //        NumberOfPersons = dto.NumberOfPersons,
-        //        EstimatedPrice = dto.EstimatedPrice,
-        //        UserId = dto.UserId,
-        //    });
-
-        //    System.Diagnostics.Debug.WriteLine("her", dto.Ingredients.ToString());
-
-        //    //Iterere gennem listen af ingredienser der oprettes med opskriften og tilføjer dem i db
-        //    foreach (Ingredient ingredient in dto.Ingredients)
-        //    {
-        //        var en = _dbContext.Ingredients.Add(new Ingredient
-        //        {
-        //            RecipeId = entity.Entity.Id,
-        //            Name = ingredient.Name,
-        //            Type = ingredient.Type,
-        //            MeasurementUnit = ingredient.MeasurementUnit,
-        //            Amount = ingredient.Amount,
-        //            Alergene = ingredient.Alergene,
-
-        //        });
-        //    }
-
-        //    await _dbContext.SaveChangesAsync();
-
-        //    return new CreateRecipeResponseDTO
-        //    {
-        //        StatusText = "New recipe created",
-        //        Name = entity.Entity.Name,
-        //        Id = entity.Entity.Id,
-        //    };
-        //}
 
         //Create new recipe
         public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)
@@ -214,6 +175,32 @@ namespace billige_madopskrifter.Service
             if (recipes != null)
             {
                 return new GetRecipesByUserIdResponseDTO
+                {
+                    Recipes = recipes.Select(r => new RecipeDTO
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        Type = r.Type,
+                        PrepTime = r.PrepTime,
+                        NumberOfPersons = r.NumberOfPersons,
+                        EstimatedPrice = r.EstimatedPrice,
+                        Description = r.Description,
+                        UserId = r.UserId,
+                    })
+                };
+            }
+
+            return null;
+        }
+
+        //Get recipes by type
+        public async Task<GetRecipesByTypeResponseDTO> GetByType(string type)
+        {
+            var recipes = _dbContext.Recipes.AsNoTracking().Where(r => r.Type == type);
+
+            if (recipes != null)
+            {
+                return new GetRecipesByTypeResponseDTO
                 {
                     Recipes = recipes.Select(r => new RecipeDTO
                     {

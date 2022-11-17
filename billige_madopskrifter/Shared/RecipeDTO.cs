@@ -36,6 +36,12 @@ namespace billige_madopskrifter.Shared
         public string StatusText { get; set; }
     }
 
+    //Get recipes by type response dto
+    public class GetRecipesByTypeResponseDTO
+    {
+        public IEnumerable<RecipeDTO> Recipes { get; set; }
+    }
+
     public class GetByNameAndUserIdResponseDTO
     {
         public int Id { get; set; }
