@@ -61,6 +61,12 @@ namespace billige_madopskrifter.Shared
         public IEnumerable<RecipeDTO> Recipes { get; set; }
     }
 
+    //Get recipes by type and search query response dto
+    public class GetRecipesByTypeAndSearchQueryResponseDTO
+    {
+        public IEnumerable<RecipeDTO> Recipes { get; set; }
+    }
+
 
     //Delete recipe response dto
     public class DeleteRecipeReponseDTO

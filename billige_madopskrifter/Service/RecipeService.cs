@@ -3,7 +3,7 @@ using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace billige_madopskrifter.Service
 {
@@ -17,6 +17,7 @@ namespace billige_madopskrifter.Service
         Task<UpdateRecipeResponseDTO> Update(UpdateRecipeRequestDTO dto, int id);
         Task<DeleteRecipeReponseDTO> Delete(int id);
         Task<GetRecipesByTypeResponseDTO> GetByType(string type);
+        Task<GetRecipesByTypeAndSearchQueryResponseDTO> Search(string type, string query);
     }
     public class RecipeService : IRecipeService
     {
@@ -216,6 +217,33 @@ namespace billige_madopskrifter.Service
                 };
             }
 
+            return null;
+        }
+
+        //Search for recipes using type and name
+        public async Task<GetRecipesByTypeAndSearchQueryResponseDTO> Search(string type, string query)
+        {
+            var recipes = _dbContext.Recipes.AsNoTracking().Where(r => r.Type == type);
+
+            if (recipes != null)
+            {
+                recipes = recipes.Where(r => r.Name.Contains(query));
+
+                return new GetRecipesByTypeAndSearchQueryResponseDTO
+                {
+                    Recipes = recipes.Select(r => new RecipeDTO
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        Type = r.Type,
+                        PrepTime = r.PrepTime,
+                        NumberOfPersons = r.NumberOfPersons,
+                        EstimatedPrice = r.EstimatedPrice,
+                        Description = r.Description,
+                        UserId = r.UserId,
+                    })
+                };
+            }
             return null;
         }
 

@@ -32,6 +32,14 @@ namespace billige_madopskrifter.Controllers
             return await _recipeService.GetAll();
         }
 
+        //Get recipes by type and search query
+        [Produces("application/json")]
+        [HttpGet("search/{type}/{query}")]
+        public async Task<GetRecipesByTypeAndSearchQueryResponseDTO> Search(string type, string query)
+        {
+            return await _recipeService.Search(type, query);
+        }
+
         //Get recipe by id
         [Produces("application/json")]
         [HttpGet("{id:int}")]
