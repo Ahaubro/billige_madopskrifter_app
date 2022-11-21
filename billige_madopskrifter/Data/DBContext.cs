@@ -11,12 +11,7 @@ namespace billige_madopskrifter.Data
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Review> Reviews { get; set; }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Recipe>().HasMany(r => r.Ingredients).WithOne(i => i.Recipe);
-        //    modelBuilder.Entity<Ingredient>().HasOne(i => i.Recipe).WithMany(r => r.Ingredients);
-        //}
+        public DbSet<LikedRecipes> LikedRecipes { get; set; }
 
     }
 }
