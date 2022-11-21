@@ -9,6 +9,7 @@ namespace billige_madopskrifter.Service
     {
         Task<CreateLikedRecipeResponseDTO> LikeRecipe(CreateLikedRecipeRequestDTO dto);
         Task<GetLikedRecipesByUserIdResponseDTO> GetLikedRecipesByUserId(int userId);
+        Task<GetLikedRecipeByUserIdAndRecipeIdResponseDto> GetByUseridAndRecipeId(int userId, int recipeId);
     }
     public class LikedRecipesService : ILikedRecipesService
     {
@@ -90,6 +91,29 @@ namespace billige_madopskrifter.Service
             };
 
             return null;
+        }
+
+        //Get likedRecipe by UserId and Recipeid (to check if the user have liked the recipe)
+        public async Task<GetLikedRecipeByUserIdAndRecipeIdResponseDto> GetByUseridAndRecipeId(int userId, int recipeId)
+        {
+            var likedRecipe = _dbContext.LikedRecipes.AsNoTracking().FirstOrDefault(lr => lr.UserId == userId && lr.RecipeId == recipeId);
+
+            if (likedRecipe != null)
+            {
+                return new GetLikedRecipeByUserIdAndRecipeIdResponseDto
+                {
+                    Id = likedRecipe.Id,
+                    UserId = likedRecipe.UserId,
+                    RecipeId = recipeId,
+                    StatusText = "isLiked"
+                };
+            }
+            return new GetLikedRecipeByUserIdAndRecipeIdResponseDto
+            {
+                StatusText = "notLiked"
+            };
+
+
         }
 
     }

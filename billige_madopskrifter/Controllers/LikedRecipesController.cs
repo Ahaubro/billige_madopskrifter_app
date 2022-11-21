@@ -28,5 +28,12 @@ namespace billige_madopskrifter.Controllers
         {
             return await _likedRecipesService.GetLikedRecipesByUserId(userId);
         }
+
+        [Produces("application/json")]
+        [HttpGet("byuseridandrecipeid/{userId:int}/{recipeId:int}")]
+        public async Task<GetLikedRecipeByUserIdAndRecipeIdResponseDto> GetGetByUseridAndRecipeId(int userId, int recipeId)
+        {
+            return await _likedRecipesService.GetByUseridAndRecipeId(userId, recipeId);
+        }
     }
 }
