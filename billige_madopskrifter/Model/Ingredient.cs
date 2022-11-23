@@ -9,5 +9,6 @@
         public string MeasurementUnit { get; set; }
         public double Amount { get; set; }
         public string? Alergene { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }

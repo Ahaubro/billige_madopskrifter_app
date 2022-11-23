@@ -25,6 +25,7 @@ namespace billige_madopskrifter.Service
         private readonly AppSettings _appSettings;
         private readonly IPasswordHelper _passwordHelper;
 
+        //Contructor
         public UserService(IOptions<AppSettings> appSettings, DBContext context, IPasswordHelper passwordHelper)
         {
             _context = context;
@@ -32,23 +33,20 @@ namespace billige_madopskrifter.Service
             _passwordHelper = passwordHelper;
         }
 
-        //Authenticate
+        //Authenticate function
         public async Task<AuthenticateResponseDto> Authenticate(AuthenticateRequestDto dto)
         {
 
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(dto.Email));
 
-            // return null if user not found
             if (user == null) return new AuthenticateResponseDto { StatusText = "User not found" };
-
-            //if(user.Password != dto.Password) return new AuthenticateResponseDto { StatusText = "Incorrect password" };
 
             if (!_passwordHelper.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return new AuthenticateResponseDto { StatusText = "Incorrect password" };
             }
 
-            // authentication successful so generate jwt token
+            // authentication successful so JWT token is generated
             var token = generateJwtToken(user);
 
             return new AuthenticateResponseDto
@@ -94,12 +92,17 @@ namespace billige_madopskrifter.Service
             };
         }
 
-        // Get by id
+        // Get user by id
         public async Task<GetUserByIdResponseDto> GetById(int id)
         {
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
 
-            if (user == null) return new GetUserByIdResponseDto { StatusText = "User not found" };
+            if (user == null)
+            {             
+                return new GetUserByIdResponseDto { StatusText = "User not found" };
+            } 
+
+            
 
             return new GetUserByIdResponseDto
             {

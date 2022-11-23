@@ -15,6 +15,7 @@ namespace billige_madopskrifter.Service
     {
         private readonly DBContext _dbContext;
 
+        //Constructor
         public LikedRecipesService(DBContext dbContext)
         {
             _dbContext = dbContext;
@@ -52,7 +53,7 @@ namespace billige_madopskrifter.Service
             };
         }
 
-        //Den var lidt pebberet, godt fucking arbejde Alex <3 - Der læses først likedRecipes´med userId, herefter bruges recipeId på likedRecipe objektet
+        //Der læses først likedRecipes´med userId, herefter bruges recipeId på likedRecipe objektet
         //til at læse opskrifter fra Recipe tabellen, som gemmes på en liste, som så returneres
         public async Task<GetLikedRecipesByUserIdResponseDTO> GetLikedRecipesByUserId(int userId)
         {
@@ -72,8 +73,6 @@ namespace billige_madopskrifter.Service
                 });                          
 
             }
-
-            //System.Diagnostics.Debug.WriteLine("Udenfor loop", recipesList.ToString());
 
             return new GetLikedRecipesByUserIdResponseDTO
             {

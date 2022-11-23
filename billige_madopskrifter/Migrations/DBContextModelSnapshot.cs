@@ -50,7 +50,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.LikedRecipes", b =>
@@ -67,7 +67,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LikedRecipes");
+                    b.ToTable("LikedRecipes", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Recipe", b =>
@@ -101,7 +101,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Review", b =>
@@ -125,7 +125,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.User", b =>
@@ -152,7 +152,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Ingredient", b =>

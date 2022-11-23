@@ -17,6 +17,7 @@ namespace billige_madopskrifter.Service
     {
         private readonly DBContext _dbContext;
 
+        //Constructor
         public ReviewService(DBContext dBContext)
         {
             _dbContext = dBContext;

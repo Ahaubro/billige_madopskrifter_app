@@ -11,6 +11,8 @@ namespace billige_madopskrifter.Controllers
     public class UserController
     {
         private IUserService _userService;
+
+        //Constructor
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -29,8 +31,7 @@ namespace billige_madopskrifter.Controllers
         }
 
 
-        // Get all users - (Virker self kun når [Authorize] er udkommenteret)
-        //[Authorize]
+        // Get all users (dev)
         [Produces("application/json")]
         [HttpGet]
         public async Task<GetAllUsersResponseDto> GetAll()
@@ -51,7 +52,6 @@ namespace billige_madopskrifter.Controllers
         [HttpGet("{id:int}")]
         public async Task<GetUserByIdResponseDto> GetById(int id)
         {
-            Console.WriteLine("UserController GetById: " + id);
             return await _userService.GetById(id);
         }
     }
