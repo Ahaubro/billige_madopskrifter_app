@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Connection string
 var sv = new MySqlServerVersion(new Version(8, 0, 29));
 var cs = "server=localhost;user=root;password=0000;database=billigmad";
 
@@ -30,8 +31,8 @@ builder.Services.AddTransient<IRecipeService, RecipeService>();
 builder.Services.AddTransient<IIngredientService, IngredientService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<ILikedRecipesService, LikedRecipesService>();
+builder.Services.AddTransient<IAllergieService, AllergieService>();
 builder.Services.AddTransient<DBContext>();
-
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

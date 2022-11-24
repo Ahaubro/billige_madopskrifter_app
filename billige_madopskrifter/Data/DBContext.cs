@@ -12,6 +12,7 @@ namespace billige_madopskrifter.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<LikedRecipes> LikedRecipes { get; set; }
+        public DbSet<Allergies> Allergies { get; set; }
 
     }
 }
