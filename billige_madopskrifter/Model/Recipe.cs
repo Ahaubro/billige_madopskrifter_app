@@ -11,7 +11,8 @@ namespace billige_madopskrifter.Model
         public int NumberOfPersons { get; set; }
         public double EstimatedPrice { get; set; }
         public IList<Ingredient>? Ingredients { get; set; }
-        //public IList<Review>? Reviews { get; set; }
+        public IList<Review>? Reviews { get; set; }
+        public IList<LikedRecipes>? LikedRecipes { get; set; }
         public string? Description { get; set; }
         public int UserId { get; set; }
 

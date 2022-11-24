@@ -11,6 +11,7 @@ namespace billige_madopskrifter.Model
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public IList<Recipe>? Recipes { get; set; }
-        //public IList<Review>? Reviews { get; set; }
+        public IList<Review>? Reviews { get; set; }
+        public IList<LikedRecipes>? LikedRecipes { get; set; }
     }
 }

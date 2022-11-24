@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using billige_madopskrifter.Data;
 
@@ -10,9 +11,10 @@ using billige_madopskrifter.Data;
 namespace billige_madopskrifter.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20221124133041_foreign key recipeId review table")]
+    partial class foreignkeyrecipeIdreviewtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,10 +68,6 @@ namespace billige_madopskrifter.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("LikedRecipes");
                 });
@@ -176,21 +174,6 @@ namespace billige_madopskrifter.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("billige_madopskrifter.Model.LikedRecipes", b =>
-                {
-                    b.HasOne("billige_madopskrifter.Model.Recipe", null)
-                        .WithMany("LikedRecipes")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("billige_madopskrifter.Model.User", null)
-                        .WithMany("LikedRecipes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("billige_madopskrifter.Model.Recipe", b =>
                 {
                     b.HasOne("billige_madopskrifter.Model.User", null)
@@ -219,15 +202,11 @@ namespace billige_madopskrifter.Migrations
                 {
                     b.Navigation("Ingredients");
 
-                    b.Navigation("LikedRecipes");
-
                     b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.User", b =>
                 {
-                    b.Navigation("LikedRecipes");
-
                     b.Navigation("Recipes");
 
                     b.Navigation("Reviews");
