@@ -131,7 +131,7 @@ namespace billige_madopskrifter.Service
             return new DeleteIngredientResponseDTO { StatusText = "Error - No entity found" };
         }
 
-        //get ingredient by RecipeId
+        //get ingredients by RecipeId
         public async Task<GetIngredientsByRecipeIDDTO> GetByRecipeId(int recipeId)
         {
             var ingredients = _dbContext.Ingredients.AsNoTracking().Where(i => i.RecipeId == recipeId);
