@@ -91,7 +91,6 @@ namespace billige_madopskrifter.Shared
     //Create response dto
     public class CreateRecipeResponseDTO
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string StatusText { get; set; }
 

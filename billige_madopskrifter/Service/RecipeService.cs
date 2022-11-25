@@ -1,9 +1,11 @@
 ﻿using billige_madopskrifter.Data;
+using billige_madopskrifter.Migrations;
 using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Xml.Linq;
 
 namespace billige_madopskrifter.Service
 {
@@ -35,23 +37,33 @@ namespace billige_madopskrifter.Service
         //Create new recipe
         public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)
         {
-            var entity = _dbContext.Recipes.Add(new Recipe
+            var check = _dbContext.Recipes.AsNoTracking().FirstOrDefault(r => r.UserId == dto.UserId && r.Name == dto.Name);
+
+            if (check == null)
             {
-                Name = dto.Name,
-                Type = dto.Type,
-                PrepTime = dto.PrepTime,
-                NumberOfPersons = dto.NumberOfPersons,
-                EstimatedPrice = dto.EstimatedPrice,
-                UserId = dto.UserId,
-            });
+                var entity = _dbContext.Recipes.Add(new Recipe
+                {
+                    Name = dto.Name,
+                    Type = dto.Type,
+                    PrepTime = dto.PrepTime,
+                    NumberOfPersons = dto.NumberOfPersons,
+                    EstimatedPrice = dto.EstimatedPrice,
+                    UserId = dto.UserId,
+                });
 
+                await _dbContext.SaveChangesAsync();
 
-            await _dbContext.SaveChangesAsync();
+                return new CreateRecipeResponseDTO
+                {
+                    StatusText = "New recipe created",
+                    Name = entity.Entity.Name
+                };
+            }
 
             return new CreateRecipeResponseDTO
-            {
-                StatusText = "New recipe created",
-                Name = entity.Entity.Name
+            { 
+                StatusText = "You already created a recipe by that name",
+                Name = dto.Name,
             };
         }
 
