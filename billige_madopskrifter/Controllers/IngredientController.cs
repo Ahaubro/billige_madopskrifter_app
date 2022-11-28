@@ -65,5 +65,13 @@ namespace billige_madopskrifter.Controllers
         {
             return await _ingredientService.Delete(id);
         }
+
+        //Search for ingredients
+        [Produces("application/json")]
+        [HttpGet("search/{search}")]
+        public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediens(string search)
+        {
+            return await _ingredientService.SearchIngrediens(search);
+        }
     }
 }

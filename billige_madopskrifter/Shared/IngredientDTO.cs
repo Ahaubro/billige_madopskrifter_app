@@ -70,7 +70,6 @@ namespace billige_madopskrifter.Shared
         public string StatusText { get; set; }
     }
 
-
     //Update ingredient request dto
     public class UpdateIngredientRequestDTO
     {
@@ -81,11 +80,16 @@ namespace billige_madopskrifter.Shared
         public string Alergene { get; set; }
     }
 
-
     //Update ingredient response dto
     public class UpdateIngredientResponseDTO
     {
         public string Name { get; set; }
         public string StatusText { get; set; }
+    }
+
+    //Get ingredietns by search query
+    public class GetIngredientsBySearchQueryResponseDTO
+    { 
+        public IEnumerable<IngredientDTO> Ingredients { get; set; }
     }
 }

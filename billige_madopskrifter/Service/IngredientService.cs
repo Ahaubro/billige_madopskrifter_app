@@ -2,6 +2,7 @@
 using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace billige_madopskrifter.Service
 {
@@ -14,6 +15,7 @@ namespace billige_madopskrifter.Service
         Task<DeleteIngredientResponseDTO> Delete(int id);
         Task<GetIngredientsByRecipeIDDTO> GetByRecipeId(int recipeId);
         Task<DeleteIngredientByRecipeIdResponseDTO> DeleteByRecipeId(int recipeId);
+        Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediens(string search);
     }
 
     public class IngredientService : IIngredientService
@@ -171,6 +173,28 @@ namespace billige_madopskrifter.Service
             {
                 StatusText = "Error - no ingredients to delete"
             };
-        } 
+        }
+
+        //Search for ingredients by search query
+        public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediens(string search)
+        {         
+                var ingredients = _dbContext.Ingredients.Where(r => r.Name.Contains(search));
+
+                return new GetIngredientsBySearchQueryResponseDTO
+                {
+                    Ingredients = ingredients.Select(i => new IngredientDTO
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        Type = i.Type,
+                        Amount = i.Amount,
+                        MeasurementUnit = i.MeasurementUnit,
+                        RecipeId = i.RecipeId,
+                        Alergene = i.Alergene
+                       
+                    })
+                };
+            
+        }
     }
 }
