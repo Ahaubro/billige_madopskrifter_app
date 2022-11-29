@@ -212,7 +212,7 @@ namespace billige_madopskrifter.Service
         public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList)
         {
             //Jeg laver et string arr ud fra den string der sendes fra frontend
-            string[] asList = searchList.Split(" ");
+            string[] asList = searchList.Split(";");
 
             //Læser alle ingredienser
             var ingredients = _dbContext.Ingredients.AsNoTracking();
