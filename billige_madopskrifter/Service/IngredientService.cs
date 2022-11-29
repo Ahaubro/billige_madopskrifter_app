@@ -2,6 +2,7 @@
 using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace billige_madopskrifter.Service
@@ -16,6 +17,7 @@ namespace billige_madopskrifter.Service
         Task<GetIngredientsByRecipeIDDTO> GetByRecipeId(int recipeId);
         Task<DeleteIngredientByRecipeIdResponseDTO> DeleteByRecipeId(int recipeId);
         Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediens(string search);
+        Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList);
     }
 
     public class IngredientService : IIngredientService
@@ -177,8 +179,13 @@ namespace billige_madopskrifter.Service
 
         //Search for ingredients by search query
         public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediens(string search)
-        {         
-                var ingredients = _dbContext.Ingredients.Where(r => r.Name.Contains(search));
+        {        
+            
+            var ingredients = _dbContext.Ingredients.Where(r => r.Name.Contains(search));
+            
+
+            if (ingredients != null)
+            {
 
                 return new GetIngredientsBySearchQueryResponseDTO
                 {
@@ -191,10 +198,67 @@ namespace billige_madopskrifter.Service
                         MeasurementUnit = i.MeasurementUnit,
                         RecipeId = i.RecipeId,
                         Alergene = i.Alergene
-                       
+
                     })
                 };
+            }
+
+
+            return null;
             
+        }
+
+        //Search for ingredients by search query list of name
+        public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList)
+        {
+            //Jeg laver et string arr ud fra den string der sendes fra frontend
+            string[] asList = searchList.Split(" ");
+
+            //Læser alle ingredienser
+            var ingredients = _dbContext.Ingredients.AsNoTracking();
+           
+            //Laver en liste der kan holde på det samlede resultat af ingredienser(Derfor cleares den)
+            var ingredientsList = _dbContext.Ingredients.ToList();
+            ingredientsList.Clear();
+
+            //For hvert navn på min liste finder jeg ingredienser der indeholder det navn, som tilføjes til listen
+            foreach (var s in asList)
+            {
+                System.Diagnostics.Debug.WriteLine(s.ToString(), "i loop");
+
+                if (s.Length > 0)
+                {
+                    ingredients = _dbContext.Ingredients.AsNoTracking().Where(ingr => ingr.Name.Contains(s));
+
+                    ingredients.ToList().ForEach((ingr) => {
+                        ingredientsList.Add(ingr);
+                    });
+
+                }
+            }
+            //Behandler listen der nu er fyldt med ingredienser og returnere dem
+            if (ingredientsList != null)
+            {
+
+                return new GetIngredientsBySearchQueryResponseDTO
+                {
+                    Ingredients = ingredientsList.Select(i => new IngredientDTO
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        Type = i.Type,
+                        Amount = i.Amount,
+                        MeasurementUnit = i.MeasurementUnit,
+                        RecipeId = i.RecipeId,
+                        Alergene = i.Alergene
+
+                    })
+                };
+            }
+
+
+            return null;
+
         }
     }
 }

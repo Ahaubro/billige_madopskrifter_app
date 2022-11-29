@@ -73,5 +73,12 @@ namespace billige_madopskrifter.Controllers
         {
             return await _ingredientService.SearchIngrediens(search);
         }
+
+        [Produces("application/json")]
+        [HttpGet("searchlist/{searchlist}")]
+        public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList)
+        {
+            return await _ingredientService.SearchIngrediensByMultipleNames(searchList);
+        }
     }
 }
