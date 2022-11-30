@@ -182,7 +182,6 @@ namespace billige_madopskrifter.Service
         {        
             
             var ingredients = _dbContext.Ingredients.Where(r => r.Name.Contains(search));
-            
 
             if (ingredients != null)
             {
@@ -203,10 +202,10 @@ namespace billige_madopskrifter.Service
                 };
             }
 
-
             return null;
             
         }
+
 
         //Search for ingredients by search query list of name
         public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList)
