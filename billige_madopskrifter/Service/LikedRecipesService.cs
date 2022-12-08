@@ -7,12 +7,14 @@ namespace billige_madopskrifter.Service
 {
     public interface ILikedRecipesService
     {
+        //Interface implementation
         Task<CreateLikedRecipeResponseDTO> LikeRecipe(CreateLikedRecipeRequestDTO dto);
         Task<GetLikedRecipesByUserIdResponseDTO> GetLikedRecipesByUserId(int userId);
         Task<GetLikedRecipeByUserIdAndRecipeIdResponseDto> GetByUseridAndRecipeId(int userId, int recipeId);
     }
     public class LikedRecipesService : ILikedRecipesService
     {
+        //Db obj
         private readonly DBContext _dbContext;
 
         //Constructor
@@ -55,6 +57,7 @@ namespace billige_madopskrifter.Service
 
         //Der læses først likedRecipes´med userId, herefter bruges recipeId på likedRecipe objektet
         //til at læse opskrifter fra Recipe tabellen, som gemmes på en liste, som så returneres
+        //(Get recipes from likedRecipes by userId)
         public async Task<GetLikedRecipesByUserIdResponseDTO> GetLikedRecipesByUserId(int userId)
         {
             var likedRecipes = _dbContext.LikedRecipes.AsNoTracking().Where(lr => lr.UserId == userId).ToList();

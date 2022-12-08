@@ -9,6 +9,7 @@ namespace billige_madopskrifter.Controllers
     public class ReviewController : Controller
     {
       
+        //IService obj
         private readonly IReviewService _reviewService;
 
         //Contructor
@@ -40,7 +41,5 @@ namespace billige_madopskrifter.Controllers
         {
             return await _reviewService.Delete(id);
         }
-
-
     }
 }

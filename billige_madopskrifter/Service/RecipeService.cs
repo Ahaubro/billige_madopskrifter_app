@@ -9,6 +9,7 @@ using System.Xml.Linq;
 
 namespace billige_madopskrifter.Service
 {
+    //Interface implementation
     public interface IRecipeService
     {
         Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto);
@@ -25,6 +26,7 @@ namespace billige_madopskrifter.Service
     public class RecipeService : IRecipeService
     {
 
+        //Db & IIngrediensService obj
         private readonly DBContext _dbContext;
         private readonly IIngredientService _ingredientService;
 
@@ -165,6 +167,7 @@ namespace billige_madopskrifter.Service
             };
         }
 
+        //Update recipe - description only
         public async Task<UpdateDescriptionResponseDTO> UpdateRecipeDescription(UpdateDescriptionRequestDTO dto, int id)
         {
             var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(r => r.Id == id);
@@ -190,8 +193,6 @@ namespace billige_madopskrifter.Service
                 StatusText = "No recipe was found"
             };
         }
-
-
 
         //Delete recipe
         public async Task<DeleteRecipeReponseDTO> Delete(int id)

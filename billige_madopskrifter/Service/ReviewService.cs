@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace billige_madopskrifter.Service
 {
-
+    
+    //Interface implementation
     public interface IReviewService
     {
         Task<GetAllReviewsDTOReponseDTO> GetAll();
@@ -15,6 +16,7 @@ namespace billige_madopskrifter.Service
     }
     public class ReviewService : IReviewService
     {
+        //Db object
         private readonly DBContext _dbContext;
 
         //Constructor
@@ -104,7 +106,6 @@ namespace billige_madopskrifter.Service
                 StatusText = "Error no review found"
             };
         }
-
 
     }
 }

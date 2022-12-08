@@ -16,10 +16,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 //Connection string
 var sv = new MySqlServerVersion(new Version(8, 0, 29));
 var cs = "server=localhost;user=root;password=0000;database=billigmad";
-
 
 builder.Services.AddDbContext<DBContext>(options => options.UseMySql(cs, sv));
 

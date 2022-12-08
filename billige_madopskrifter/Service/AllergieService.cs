@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.Xml;
 
 namespace billige_madopskrifter.Service
-{
+{   
+    //Interface implementation
     public interface IAllergieService
     {
         Task<CreateAllergiResponseDTO> CreateAllergi(CreateAllergiRequestDTO dto);
@@ -14,7 +15,7 @@ namespace billige_madopskrifter.Service
     }
     public class AllergieService : IAllergieService
     {
-
+        //Db obj
         private readonly DBContext _dbContext;
 
         //Constructor

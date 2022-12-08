@@ -8,6 +8,7 @@ namespace billige_madopskrifter.Controllers
     [ApiController]
     public class RecipeController : Controller
     {
+        //IService obj
         private readonly IRecipeService _recipeService;
 
         //Constructor

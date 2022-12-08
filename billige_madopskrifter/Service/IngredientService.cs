@@ -7,6 +7,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace billige_madopskrifter.Service
 {
+    //Interface implementation
     public interface IIngredientService
     {
         Task<CreateIngredientResponseDTO> Create(CreateIngredientRequestDTO dto);
@@ -22,6 +23,7 @@ namespace billige_madopskrifter.Service
 
     public class IngredientService : IIngredientService
     {
+        //Db obj
         private readonly DBContext _dbContext;
 
         //Constructor
@@ -206,8 +208,7 @@ namespace billige_madopskrifter.Service
             
         }
 
-
-        //Search for ingredients by search query list of name
+        //Search for ingredients by search query list of names
         public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList)
         {
             //Jeg laver et string arr ud fra den string der sendes fra frontend
@@ -254,10 +255,7 @@ namespace billige_madopskrifter.Service
                     })
                 };
             }
-
-
             return null;
-
         }
     }
 }

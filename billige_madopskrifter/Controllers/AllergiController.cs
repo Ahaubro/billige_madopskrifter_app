@@ -8,7 +8,7 @@ namespace billige_madopskrifter.Controllers
     [Route("api/[controller]")]
     public class AllergiController
     {
-
+        //IService obj
         private readonly IAllergieService _allergiService;
 
         //Constructor

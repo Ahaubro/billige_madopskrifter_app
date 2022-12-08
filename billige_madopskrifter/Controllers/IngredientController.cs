@@ -9,7 +9,7 @@ namespace billige_madopskrifter.Controllers
     [ApiController]
     public class IngredientController : Controller
     {
-
+        //IService obj
         private readonly IIngredientService _ingredientService;
 
         //Constructor
@@ -74,6 +74,7 @@ namespace billige_madopskrifter.Controllers
             return await _ingredientService.SearchIngrediens(search);
         }
 
+        //Search for ingrediens by "list of names"(string seperated by ;)
         [Produces("application/json")]
         [HttpGet("searchlist/{searchlist}")]
         public async Task<GetIngredientsBySearchQueryResponseDTO> SearchIngrediensByMultipleNames(string searchList)

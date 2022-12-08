@@ -11,6 +11,7 @@ using System.Text;
 
 namespace billige_madopskrifter.Service
 {
+    //Interface implementation
     public interface IUserService
     {
         Task<AuthenticateResponseDto> Authenticate(AuthenticateRequestDto model);
@@ -18,9 +19,9 @@ namespace billige_madopskrifter.Service
         Task<GetUserByIdResponseDto> GetById(int id);
         Task<CreateUserResponseDto> Create(CreateUserRequestDto dto);
     }
-
     public class UserService : IUserService
     {
+        //Db, appSettings og PasswordHelper obj
         private readonly DBContext _context;
         private readonly AppSettings _appSettings;
         private readonly IPasswordHelper _passwordHelper;
@@ -39,14 +40,17 @@ namespace billige_madopskrifter.Service
 
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(dto.Email));
 
-            if (user == null) return new AuthenticateResponseDto { StatusText = "User not found" };
+            if (user == null)
+            { 
+                return new AuthenticateResponseDto { StatusText = "User not found" };
+            } 
+            
 
             if (!_passwordHelper.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return new AuthenticateResponseDto { StatusText = "Incorrect password" };
             }
 
-            // authentication successful so JWT token is generated
             var token = generateJwtToken(user);
 
             return new AuthenticateResponseDto
@@ -59,7 +63,6 @@ namespace billige_madopskrifter.Service
              
             };
         }
-
 
         // Token generation for auth
         private string generateJwtToken(User user)
@@ -76,7 +79,6 @@ namespace billige_madopskrifter.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
 
         // Get all - primært til udvikling
         public async Task<GetAllUsersResponseDto> GetAll()
@@ -114,7 +116,6 @@ namespace billige_madopskrifter.Service
             };
         }
 
-
         // Create new user
         public async Task<CreateUserResponseDto> Create(CreateUserRequestDto dto)
         {
@@ -148,7 +149,6 @@ namespace billige_madopskrifter.Service
             };
 
         }
-
 
     }
 }

@@ -30,7 +30,6 @@ namespace billige_madopskrifter.Controllers
             return new OkObjectResult(response);
         }
 
-
         // Get all users (dev)
         [Produces("application/json")]
         [HttpGet]
