@@ -3,7 +3,6 @@ using Microsoft.Extensions.Primitives;
 
 namespace billige_madopskrifter.Shared
 {
-    //Ingredient dto class
     public class IngredientDTO
     {
         public int Id { get; set; }

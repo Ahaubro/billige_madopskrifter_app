@@ -80,6 +80,14 @@ namespace billige_madopskrifter.Controllers
             return await _recipeService.Update(dto, id);
         }
 
+        //Update recipe description
+        [Produces("application/json")]
+        [HttpPatch("description/{id:int}")]
+        public async Task<UpdateDescriptionResponseDTO> UpdateRecipeDescription([FromBody] UpdateDescriptionRequestDTO dto, int id)
+        {
+            return await _recipeService.UpdateRecipeDescription(dto, id);
+        }
+
         //Delete recipe
         [Produces("application/json")]
         [HttpDelete("{id:int}")]

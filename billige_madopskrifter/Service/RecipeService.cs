@@ -20,6 +20,7 @@ namespace billige_madopskrifter.Service
         Task<DeleteRecipeReponseDTO> Delete(int id);
         Task<GetRecipesByTypeResponseDTO> GetByType(string type);
         Task<GetRecipesByTypeAndSearchQueryResponseDTO> Search(string type, string query);
+        Task<UpdateDescriptionResponseDTO> UpdateRecipeDescription(UpdateDescriptionRequestDTO dto, int id);
     }
     public class RecipeService : IRecipeService
     {
@@ -140,7 +141,14 @@ namespace billige_madopskrifter.Service
             
             if (recipe != null)
             {
+                recipe.Name = dto.Name;
+                recipe.Type = dto.Type;
                 recipe.Description = dto.Description;
+                recipe.UserId = dto.UserId;
+                recipe.PrepTime = dto.PrepTime;
+                recipe.EstimatedPrice = dto.EstimatedPrice;
+                recipe.NumberOfPersons = dto.NumberOfPersons;
+                
 
                 var entity = _dbContext.Update(recipe);
                 await _dbContext.SaveChangesAsync();
@@ -156,6 +164,34 @@ namespace billige_madopskrifter.Service
                 StatusText = "No recipe was found"
             };
         }
+
+        public async Task<UpdateDescriptionResponseDTO> UpdateRecipeDescription(UpdateDescriptionRequestDTO dto, int id)
+        {
+            var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(r => r.Id == id);
+
+            if (recipe != null)
+            {
+
+                recipe.Description = dto.Description;
+
+
+
+                var entity = _dbContext.Update(recipe);
+                await _dbContext.SaveChangesAsync();
+
+                return new UpdateDescriptionResponseDTO
+                {
+                    StatusText = "Succesfulle updatet recipe"
+                };
+            }
+
+            return new UpdateDescriptionResponseDTO
+            {
+                StatusText = "No recipe was found"
+            };
+        }
+
+
 
         //Delete recipe
         public async Task<DeleteRecipeReponseDTO> Delete(int id)

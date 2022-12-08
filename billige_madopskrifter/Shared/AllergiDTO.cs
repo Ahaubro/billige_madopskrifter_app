@@ -8,7 +8,6 @@
     }
 
     //Get allergies by user id response DTO
-
     public class GetAllergiesByUserIdResponseDTO
     { 
         public IEnumerable<AllergiDTO> Allergies { get; set; }

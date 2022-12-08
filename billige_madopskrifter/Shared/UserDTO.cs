@@ -2,7 +2,6 @@
 
 namespace billige_madopskrifter.Shared
 {
- 
     public class UserDTO
     {
         public int Id { get; set; }
@@ -42,6 +41,7 @@ namespace billige_madopskrifter.Shared
         public string FullName { get; set; }
         public string Token { get; set; }
         public string StatusText { get; set; }
+        public string Email { get; set; }
     }
 
     // Create request object

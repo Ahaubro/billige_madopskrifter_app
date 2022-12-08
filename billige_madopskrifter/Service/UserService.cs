@@ -54,7 +54,9 @@ namespace billige_madopskrifter.Service
                 Id = user.Id,
                 FullName = user.FullName,
                 Token = token,
-                StatusText = "LoggedIn"
+                StatusText = "LoggedIn",
+                Email = user.Email,
+             
             };
         }
 

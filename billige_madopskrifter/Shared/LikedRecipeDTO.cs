@@ -26,6 +26,7 @@
         public IEnumerable<RecipeDTO> Recipes { get; set; }
     }
 
+    //Get likedrecipes by userId and recipeId responseDTO
     public class GetLikedRecipeByUserIdAndRecipeIdResponseDto
     {
         public int Id { get; set; }
