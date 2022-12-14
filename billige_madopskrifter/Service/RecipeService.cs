@@ -26,15 +26,14 @@ namespace billige_madopskrifter.Service
     public class RecipeService : IRecipeService
     {
 
-        //Db & IIngrediensService obj
+        //Db object
         private readonly DBContext _dbContext;
-        private readonly IIngredientService _ingredientService;
 
         //Constructor
-        public RecipeService(DBContext dbContext, IIngredientService ingredientService)
+        public RecipeService(DBContext dbContext)
         {
             _dbContext = dbContext;
-            _ingredientService = ingredientService;
+
         }
 
         //Create new recipe
@@ -201,7 +200,6 @@ namespace billige_madopskrifter.Service
 
             if (recipe != null)
             {
-                await _ingredientService.DeleteByRecipeId(id);
                 _dbContext.Remove(recipe);
                 await _dbContext.SaveChangesAsync();
                 return new DeleteRecipeReponseDTO
