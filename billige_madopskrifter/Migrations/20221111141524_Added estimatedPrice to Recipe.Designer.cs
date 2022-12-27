@@ -10,7 +10,7 @@ using billige_madopskrifter.Data;
 
 namespace billige_madopskrifter.Migrations
 {
-    [DbContext(typeof(DBContext))]
+    [DbContext(typeof(MyDBContext))]
     [Migration("20221111141524_Added estimatedPrice to Recipe")]
     partial class AddedestimatedPricetoRecipe
     {

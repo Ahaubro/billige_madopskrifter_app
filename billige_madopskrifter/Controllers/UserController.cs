@@ -8,7 +8,7 @@ namespace billige_madopskrifter.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController
+    public class UserController : Controller
     {
         private IUserService _userService;
 

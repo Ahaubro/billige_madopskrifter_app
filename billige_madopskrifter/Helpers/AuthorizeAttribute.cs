@@ -4,6 +4,7 @@ using billige_madopskrifter.Model;
 
 namespace billige_madopskrifter.Helpers
 {
+    // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
     public class AuthorizeAttribute
     {
         [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]

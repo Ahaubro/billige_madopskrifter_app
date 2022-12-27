@@ -10,7 +10,7 @@ using billige_madopskrifter.Data;
 
 namespace billige_madopskrifter.Migrations
 {
-    [DbContext(typeof(DBContext))]
+    [DbContext(typeof(MyDBContext))]
     [Migration("20221124133606_likedRecipe foreign keys(userId, recipeId)")]
     partial class likedRecipeforeignkeysuserIdrecipeId
     {

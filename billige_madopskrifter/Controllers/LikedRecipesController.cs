@@ -6,7 +6,7 @@ namespace billige_madopskrifter.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
-    public class LikedRecipesController
+    public class LikedRecipesController : Controller
     {
         //IService obj
         private readonly ILikedRecipesService _likedRecipesService;

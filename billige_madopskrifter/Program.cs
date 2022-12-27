@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 var sv = new MySqlServerVersion(new Version(8, 0, 29));
 var cs = "server=localhost;user=root;password=0000;database=billigmad";
 
-builder.Services.AddDbContext<DBContext>(options => options.UseMySql(cs, sv));
+builder.Services.AddDbContext<MyDBContext>(options => options.UseMySql(cs, sv));
 
 
 //INJECT SERVICE KLASSER
@@ -32,7 +32,7 @@ builder.Services.AddTransient<IIngredientService, IngredientService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<ILikedRecipesService, LikedRecipesService>();
 builder.Services.AddTransient<IAllergieService, AllergieService>();
-builder.Services.AddTransient<DBContext>();
+builder.Services.AddTransient<MyDBContext>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

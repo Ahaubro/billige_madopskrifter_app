@@ -9,7 +9,7 @@ using billige_madopskrifter.Data;
 
 namespace billige_madopskrifter.Migrations
 {
-    [DbContext(typeof(DBContext))]
+    [DbContext(typeof(MyDBContext))]
     partial class DBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Allergies");
+                    b.ToTable("Allergies", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Ingredient", b =>
@@ -70,7 +70,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.LikedRecipes", b =>
@@ -91,7 +91,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LikedRecipes");
+                    b.ToTable("LikedRecipes", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Recipe", b =>
@@ -127,7 +127,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Review", b =>
@@ -155,7 +155,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.User", b =>
@@ -182,7 +182,7 @@ namespace billige_madopskrifter.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("billige_madopskrifter.Model.Allergies", b =>

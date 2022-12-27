@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace billige_madopskrifter.Data
 {
-    public class DBContext : DbContext
+    public class MyDBContext : DbContext
     {
-        public DBContext(DbContextOptions<DBContext> options) : base(options) { }
+        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }

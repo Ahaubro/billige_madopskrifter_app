@@ -6,7 +6,7 @@ namespace billige_madopskrifter.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AllergiController
+    public class AllergiController : Controller
     {
         //IService obj
         private readonly IAllergieService _allergiService;

@@ -24,10 +24,10 @@ namespace billige_madopskrifter.Service
     public class IngredientService : IIngredientService
     {
         //Db obj
-        private readonly DBContext _dbContext;
+        private readonly MyDBContext _dbContext;
 
         //Constructor
-        public IngredientService(DBContext dBContext)
+        public IngredientService(MyDBContext dBContext)
         {
             _dbContext = dBContext;
         }

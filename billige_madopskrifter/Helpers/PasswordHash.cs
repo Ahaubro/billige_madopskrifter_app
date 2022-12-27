@@ -3,6 +3,7 @@ using System.Text;
 
 namespace billige_madopskrifter.Helpers
 {
+    // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
     public interface IPasswordHelper
     {
         (byte[] passwordHash, byte[] passwordSalt) CreateHash(string password);

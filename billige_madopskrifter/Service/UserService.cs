@@ -22,18 +22,19 @@ namespace billige_madopskrifter.Service
     public class UserService : IUserService
     {
         //Db, appSettings og PasswordHelper obj
-        private readonly DBContext _context;
+        private readonly MyDBContext _context;
         private readonly AppSettings _appSettings;
         private readonly IPasswordHelper _passwordHelper;
 
         //Contructor
-        public UserService(IOptions<AppSettings> appSettings, DBContext context, IPasswordHelper passwordHelper)
+        public UserService(IOptions<AppSettings> appSettings, MyDBContext context, IPasswordHelper passwordHelper)
         {
             _context = context;
             _appSettings = appSettings.Value;
             _passwordHelper = passwordHelper;
         }
 
+        // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
         //Authenticate function
         public async Task<AuthenticateResponseDto> Authenticate(AuthenticateRequestDto dto)
         {
@@ -64,6 +65,7 @@ namespace billige_madopskrifter.Service
             };
         }
 
+        // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
         // Token generation for auth
         private string generateJwtToken(User user)
         {
@@ -117,6 +119,7 @@ namespace billige_madopskrifter.Service
         }
 
         // Create new user
+        // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
         public async Task<CreateUserResponseDto> Create(CreateUserRequestDto dto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(d => d.Email == dto.Email);

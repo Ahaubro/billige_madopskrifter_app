@@ -15,10 +15,10 @@ namespace billige_madopskrifter.Service
     public class LikedRecipesService : ILikedRecipesService
     {
         //Db obj
-        private readonly DBContext _dbContext;
+        private readonly MyDBContext _dbContext;
 
         //Constructor
-        public LikedRecipesService(DBContext dbContext)
+        public LikedRecipesService(MyDBContext dbContext)
         {
             _dbContext = dbContext;
         }

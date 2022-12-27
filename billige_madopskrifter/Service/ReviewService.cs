@@ -17,10 +17,10 @@ namespace billige_madopskrifter.Service
     public class ReviewService : IReviewService
     {
         //Db object
-        private readonly DBContext _dbContext;
+        private readonly MyDBContext _dbContext;
 
         //Constructor
-        public ReviewService(DBContext dBContext)
+        public ReviewService(MyDBContext dBContext)
         {
             _dbContext = dBContext;
         }

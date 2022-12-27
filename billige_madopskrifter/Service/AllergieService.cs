@@ -16,10 +16,10 @@ namespace billige_madopskrifter.Service
     public class AllergieService : IAllergieService
     {
         //Db obj
-        private readonly DBContext _dbContext;
+        private readonly MyDBContext _dbContext;
 
         //Constructor
-        public AllergieService(DBContext dbContext)
+        public AllergieService(MyDBContext dbContext)
         {
             _dbContext = dbContext;
         }

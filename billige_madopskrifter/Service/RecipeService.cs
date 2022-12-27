@@ -27,14 +27,14 @@ namespace billige_madopskrifter.Service
     {
 
         //Db object
-        private readonly DBContext _dbContext;
+        private readonly MyDBContext _dbContext;
 
         //Constructor
-        public RecipeService(DBContext dbContext)
+        public RecipeService(MyDBContext dbContext)
         {
             _dbContext = dbContext;
-
         }
+
 
         //Create new recipe
         public async Task<CreateRecipeResponseDTO> Create(CreateRecipeRequestDTO dto)

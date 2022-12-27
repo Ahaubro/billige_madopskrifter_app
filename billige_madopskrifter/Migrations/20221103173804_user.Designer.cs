@@ -9,7 +9,7 @@ using billige_madopskrifter.Data;
 
 namespace billige_madopskrifter.Migrations
 {
-    [DbContext(typeof(DBContext))]
+    [DbContext(typeof(MyDBContext))]
     [Migration("20221103173804_user")]
     partial class user
     {

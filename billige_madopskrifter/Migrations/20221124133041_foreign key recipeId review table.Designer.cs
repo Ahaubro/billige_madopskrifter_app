@@ -10,7 +10,7 @@ using billige_madopskrifter.Data;
 
 namespace billige_madopskrifter.Migrations
 {
-    [DbContext(typeof(DBContext))]
+    [DbContext(typeof(MyDBContext))]
     [Migration("20221124133041_foreign key recipeId review table")]
     partial class foreignkeyrecipeIdreviewtable
     {
