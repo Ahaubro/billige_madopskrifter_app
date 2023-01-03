@@ -7,7 +7,6 @@ namespace billige_madopskrifter.Model
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        //[JsonIgnore]
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         //Foreign keys

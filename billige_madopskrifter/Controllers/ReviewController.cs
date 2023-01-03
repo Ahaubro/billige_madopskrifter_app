@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace billige_madopskrifter.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ReviewController : Controller
     {
       

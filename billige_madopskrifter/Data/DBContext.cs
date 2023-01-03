@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace billige_madopskrifter.Data
 {
+    // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
     public class MyDBContext : DbContext
     {
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) { }

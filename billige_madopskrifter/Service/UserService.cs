@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+// Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
 namespace billige_madopskrifter.Service
 {
     //Interface implementation
@@ -34,7 +35,6 @@ namespace billige_madopskrifter.Service
             _passwordHelper = passwordHelper;
         }
 
-        // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
         //Authenticate function
         public async Task<AuthenticateResponseDto> Authenticate(AuthenticateRequestDto dto)
         {
@@ -65,7 +65,6 @@ namespace billige_madopskrifter.Service
             };
         }
 
-        // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
         // Token generation for auth
         private string generateJwtToken(User user)
         {
@@ -119,7 +118,6 @@ namespace billige_madopskrifter.Service
         }
 
         // Create new user
-        // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
         public async Task<CreateUserResponseDto> Create(CreateUserRequestDto dto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(d => d.Email == dto.Email);

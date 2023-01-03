@@ -1,13 +1,9 @@
 using billige_madopskrifter.Data;
 using billige_madopskrifter.Helpers;
-using billige_madopskrifter.Model;
 using billige_madopskrifter.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-//using MySql.Data.MySqlClient;
-using Pomelo.EntityFrameworkCore.MySql;
 using static billige_madopskrifter.Helpers.JWTMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,10 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-//Connection string
+//Connection string & adding MyDBContext
 var sv = new MySqlServerVersion(new Version(8, 0, 29));
 var cs = "server=localhost;user=root;password=0000;database=billigmad";
-
 builder.Services.AddDbContext<MyDBContext>(options => options.UseMySql(cs, sv));
 
 
@@ -35,6 +30,7 @@ builder.Services.AddTransient<IAllergieService, AllergieService>();
 builder.Services.AddTransient<MyDBContext>();
 
 
+// Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
         options => builder.Configuration.Bind("JwtSettings", options))
