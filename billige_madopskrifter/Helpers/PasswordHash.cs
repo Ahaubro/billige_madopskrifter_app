@@ -4,30 +4,18 @@ using System.Text;
 namespace billige_madopskrifter.Helpers
 {
     // Lavet med hjælp fra projektet https://github.com/Ahaubro/Wemuda-book-app 
+
+    // Interface implementation
     public interface IPasswordHelper
     {
         (byte[] passwordHash, byte[] passwordSalt) CreateHash(string password);
-        string GenerateRandomString(int length);
         bool VerifyPassword(string password, byte[] hash, byte[] salt);
+       
     }
     public class PasswordHash : IPasswordHelper
     {
-        public string GenerateRandomString(int length)
-        {
-            return new(Enumerable.
-                Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", length)
-                .Select(x =>
-                {
-                    var cryptoResult = new byte[4];
-                    using (var cryptoProvider = new RNGCryptoServiceProvider())
-                    {
-                        cryptoProvider.GetBytes(cryptoResult);
-                    }
-
-                    return x[new Random(BitConverter.ToInt32(cryptoResult, 0)).Next(x.Length)];
-                }).ToArray());
-        }
-
+       
+        // Function that creates password hash
         public (byte[] passwordHash, byte[] passwordSalt) CreateHash(string password)
         {
             if (password == null) throw new ArgumentNullException(nameof(password));
@@ -40,15 +28,26 @@ namespace billige_madopskrifter.Helpers
             );
         }
 
+        //Function used to verify password
         public bool VerifyPassword(string password, byte[] hash, byte[] salt)
         {
-            if (password == null) throw new ArgumentNullException(nameof(password));
-            if (hash == null) return false;
-            if (salt == null) return false;
+            if (password == null)
+            {           
+                throw new ArgumentNullException(nameof(password));
+            }
+
+            if (hash == null)
+            { 
+                return false;
+            }
+            if (salt == null)
+            {             
+                return false;
+            } 
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentException("Value cannot be empty or whitespace only string.", nameof(password));
+                throw new ArgumentException("Value cannot be empty or an empty string.", nameof(password));
             }
 
             if (hash.Length != 64)

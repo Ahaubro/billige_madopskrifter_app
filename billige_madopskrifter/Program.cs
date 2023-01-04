@@ -4,7 +4,6 @@ using billige_madopskrifter.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using static billige_madopskrifter.Helpers.JWTMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,8 +42,6 @@ var app = builder.Build();
 
 app.UseCors(configuration =>
                 configuration.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 

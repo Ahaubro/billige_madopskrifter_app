@@ -2,6 +2,7 @@
 using billige_madopskrifter.Helpers;
 using billige_madopskrifter.Model;
 using billige_madopskrifter.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +17,6 @@ namespace billige_madopskrifter.Service
     public interface IUserService
     {
         Task<AuthenticateResponseDto> Authenticate(AuthenticateRequestDto model);
-        Task<GetAllUsersResponseDto> GetAll();
         Task<GetUserByIdResponseDto> GetById(int id);
         Task<CreateUserResponseDto> Create(CreateUserRequestDto dto);
     }
@@ -81,21 +81,6 @@ namespace billige_madopskrifter.Service
             return tokenHandler.WriteToken(token);
         }
 
-        // Get all - primært til udvikling
-        public async Task<GetAllUsersResponseDto> GetAll()
-        {
-            var allUsers = _context.Users.ToList();
-
-            return new GetAllUsersResponseDto
-            {
-                Users = allUsers.Select(b => new UserDTO
-                {
-                    Id = b.Id,
-                    FullName = b.FullName,
-
-                })
-            };
-        }
 
         // Get user by id
         public async Task<GetUserByIdResponseDto> GetById(int id)

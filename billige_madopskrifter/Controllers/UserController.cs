@@ -30,14 +30,6 @@ namespace billige_madopskrifter.Controllers
             return new OkObjectResult(response);
         }
 
-        // Get all users (dev)
-        [Produces("application/json")]
-        [HttpGet]
-        public async Task<GetAllUsersResponseDto> GetAll()
-        {
-            return await _userService.GetAll();
-        }
-
         // Create user
         [Produces("application/json")]
         [HttpPost]
